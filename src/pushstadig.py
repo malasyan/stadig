@@ -23,7 +23,7 @@ finduserkey = ['352049073522022',
                '358374067863099',
                '866479022917412']
 
-print('开始下载...')
+print('begin download...')
 
 n = 0
 m = minute
@@ -60,4 +60,4 @@ while n < m:
     n = n + 1
     time = func.tsum(date, time, 1)
 
-print("日志已生成")
+print("down!")
