@@ -13,7 +13,7 @@ now = datetime.now()
 yesterday = now - timedelta(days=1)
 date = yesterday.strftime('%Y-%m-%d')
 time = '0800'
-minute = 10
+minute = 900
 
 domain = 'http://10.80.130.149/newsapp_src/'
 finduserkey = ['352049073522022',
