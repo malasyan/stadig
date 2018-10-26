@@ -1,0 +1,5 @@
+2018-08-20+05:33:10#page#id=cmpp_030240060075667_1$ref=sy$type=pic$src=凤凰图片$reftype=jppool|sub_79139811|news|$rToken=87abb3b4-5cdf-470b-ba5f-222c0e652e91$tag=t4&net=3g&tm=1537385590&sig2=b3f606285547c3f642c6aec1b6a1a72c&sver=V1&sig=3ft8rwg04sc8enfq32jc129s4rf812tn3ft832gt3i28iw1
+2018-09-20+03:34:02#page#id=yz$ref=back$type=other
+2018-08-20+05:34:02#page#id=sy$ref=back$type=ch
+2018-09-20+03:34:02#v#vid=video_67b11eb3-86a2-4917-8876-804b1531b930$pdur=97.0$vdur=104$pgid=video_67b11eb3-86a2-4917-8876-804b1531b930$yn=yes$ref=sy$showtype=hdpic$src=55-56$rToken=8cd8b966-e783-4cec-9e48-e2aee45878b7$simid=clusterId_34572792
+2018-09-20+03:34:02#duration#type=video$id=video_67b11eb3-86a2-4917-8876-804b1531b930$rToken=8cd8b966-e783-4cec-9e48-e2aee45878b7$simid=clusterId_34572792$sec=99.0&net=wifi&tm=1537385645&sig2=054bab9472ae611adb0da0a79e15e012&sver=V1&sig=4tc8rwce3w08rn9s3hf4rfgh3atckfga32j74wfa4btc3w1
