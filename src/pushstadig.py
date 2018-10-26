@@ -5,7 +5,7 @@ import urllib,os
 from urllib import parse
 from datetime import datetime,timedelta
 
-from stadig import func
+from function import func
 
 
 # 获得日期

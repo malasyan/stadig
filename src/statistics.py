@@ -4,8 +4,8 @@
 import sys, urllib, os
 from urllib import parse
 
-from stadig import stadigcp
-from stadig import func
+from function import stadigcp
+from function import func
 
 # 调用命令行输入参数函数
 stadigcp.main(sys.argv[1:])
