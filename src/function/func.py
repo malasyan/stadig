@@ -14,7 +14,7 @@ from datetime import datetime,timedelta
 def download(url, filename, stafile):
 
     http = urllib3.PoolManager()
-    r = http.request("GET", url)
+    r = http.request("GET", url )
 
     with open(filename, "wb") as code:
         code.write(r.data)
