@@ -102,8 +102,17 @@ def compare(mfile,lfile,report):
     fid.write(d.make_file(txt_line1, txt_line2, context=True, numlines=5, charset='utf-8'))
     fid.close()
 
-
-
+# 定义一个函数:将一行统计日志,转换成字典
+# x 字符串
+def string_dic(x):
+    record = x[x.find('#') + 1 : x.rfind('#')]
+    content = x[x.rfind('#') + 1:].split('$')
+    list = [['item', record]]
+    for c in content:
+        y = c.split('=')
+        list.append(y)
+    dic = dict(list)
+    return dic
 
 
 
