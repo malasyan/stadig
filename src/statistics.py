@@ -32,10 +32,10 @@ while n < m:
     print(url)
 
     # 执行下载&解压
-    #func.download(url, filename, stafile)
+    func.download(url, "./temp/" + filename, "./temp/" + stafile)
 
     # 筛选有用日志
-    with open(stafile, "r", encoding="utf-8") as f_sta:
+    with open("./temp/" + stafile, "r", encoding="utf-8") as f_sta:
         I = f_sta.readlines()
 
     with open('./outputs/log.txt', "a", encoding="utf-8") as f_log:
@@ -63,6 +63,7 @@ while n < m:
                     f_log.write(logse + '\n')
 
 
+                # 多此一举,暂时无用
                 # # 获得datatype的起始位置
                 # if i_urlredecode.find('iPhone;') == -1:
                 #     dt_begin = i_urlredecode.find('datatype=')
@@ -81,7 +82,7 @@ while n < m:
                 #
                 # f_log.write(log + '\n')
 
-    #os.remove(stafile)
+    #os.remove("./temp/" + stafile)
     n = n + 1
     time = func.tsum(date, time, 1)
 
@@ -92,7 +93,7 @@ func.string_switch("./outputs/log.txt", "@", "\n", "g")
 with open("./outputs/log.txt", "r", encoding="utf-8") as r_log:
     I = r_log.readlines()
 
-with open("./outputs/" + date + ".txt", "a", encoding="utf-8") as w_logc:
+with open("./outputs/statistics_" + date + ".txt", "a", encoding="utf-8") as w_logc:
     for i in I:
         if '#hb#' in i or '#shumeng#' in i or '#pushaccess#' in i:
             continue
@@ -104,11 +105,6 @@ if os.path.exists("./outputs/log.txt"):
 
 print("log complete!")
 print("split log...")
-
-
-
-
-
 
 
 
