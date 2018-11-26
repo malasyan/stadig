@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# ******************
+# 统计日志自动化比对脚本
+# ******************
+
 import sys, urllib, os
 from urllib import parse
 
@@ -105,8 +109,6 @@ if os.path.exists("./outputs/log.txt"):
 
 print("log complete!")
 print("split log...")
-
-
 
 #func.compare("./mould/mould.txt", "./outputs/log.txt", "/outputs/report.html")
 

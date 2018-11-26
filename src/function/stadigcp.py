@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# ************
+# 脚本接受的参数
+# ************
+
 import sys, getopt
 
 def main(argv):

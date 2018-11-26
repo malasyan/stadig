@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# **************
+# push到达统计日志
+# **************
+
 import urllib,os
 from urllib import parse
 from datetime import datetime,timedelta
