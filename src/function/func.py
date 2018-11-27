@@ -170,8 +170,11 @@ def report(mfile, lfile, mapst):
                         type = mapst[item]['type'][dict_i['type']]
                         fa.write(t + ': 在(%s)频道,(%s)页面,进行了分享操作.\n' % (dict_i['ch'], type))
                     elif item == 'end':
-                        status = mapst[item]['status'][dict_i['status']]
-                        fa.write(t + ': (%s)客户端,此次客户端运行时长(%s)秒.\n' % (status, dict_i['odur']))
+                        if 'status' in dict_i:
+                            status = mapst[item]['status'][dict_i['status']]
+                            fa.write(t + ': (%s)客户端,此次客户端运行时长(%s)秒.\n' % (status, dict_i['odur']))
+                        else:
+                            fa.write(t + ': 退出客户端,此次客户端运行时长(%s)秒.\n' % dict_i['odur'])
                     elif item == 'desktop':
                         op = mapst[item]['op'][dict_i['op']]
                         fa.write(t + '(%s).\n' % op)
