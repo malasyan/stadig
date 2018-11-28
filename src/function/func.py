@@ -132,12 +132,13 @@ def report(mfile, lfile, mapst):
         for i in I:
             if '#' in i:
                 t = i[:i.find('#')]
+                print(i)
 
                 if i[i.find('#') + 1 : i.rfind('#')] == 'adinfo':
                     fa.write(t + ': 广告曝光\n')
                 elif i[i.find('#') + 1 : i.rfind('#')] == 'pageinfo':
-                    fa.write(t + ': pagen曝光\n')
-                else:
+                    fa.write(t + ': page曝光\n')
+                elif i[-2] != '=':
                     dict_i = string_dic(i)
                     item = dict_i['item']
 
@@ -189,6 +190,8 @@ def report(mfile, lfile, mapst):
                         fa.write(t + ': 数盟统计\n')
                     else:
                         fa.write(i)
+                else:
+                    fa.write(i)
             else:
                 fa.write(i)
 
