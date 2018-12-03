@@ -5,10 +5,13 @@
 # 公共函数
 # *******
 
-import sys, os
 import difflib
-import gzip, shutil, urllib3
-from datetime import datetime,timedelta
+import gzip
+import os
+import shutil
+import sys
+import urllib3
+from datetime import datetime, timedelta
 
 
 # 定义一个函数:下载&解压&删除压缩文件
@@ -106,6 +109,17 @@ def compare(mfile,lfile,report):
     fid.write(d.make_file(txt_line1, txt_line2, context=True, numlines=5, charset='utf-8'))
     fid.close()
 
+# 定义一个函数:返回子字符串在母字符串中出现的次数.
+# mon_str: 母字符串
+# son_str: 子字符串
+def calcu_str_num(mon_str, son_str):
+    count = 0
+    for i in range(len(mon_str)):
+        if mon_str[i:i+len(son_str)] == son_str:
+            count += 1
+    return count
+
+
 # 定义一个函数:将一行统计日志,转换成字典
 # x 字符串
 def string_dic(x):
@@ -113,8 +127,14 @@ def string_dic(x):
     content = x[x.rfind('#') + 1:x.rfind('\n')].split('$')
     list = [['item', record]]
     for c in content:
-        y = c.split('=')
-        list.append(y)
+        if calcu_str_num(c, '=') == 1:
+            y = c.split('=')
+            list.append(y)
+        elif calcu_str_num(c, '=') > 1:
+            y = (c[:c.find('=')], c[c.find('=') + 1:])
+            list.append(y)
+        else:
+            pass
     dic = dict(list)
     return dic
 
@@ -132,66 +152,80 @@ def report(mfile, lfile, mapst):
         for i in I:
             if '#' in i:
                 t = i[:i.find('#')]
-                print(i)
-
                 if i[i.find('#') + 1 : i.rfind('#')] == 'adinfo':
                     fa.write(t + ': 广告曝光\n')
                 elif i[i.find('#') + 1 : i.rfind('#')] == 'pageinfo':
                     fa.write(t + ': page曝光\n')
-                elif i[-2] != '=':
-                    dict_i = string_dic(i)
-                    item = dict_i['item']
-
-                    if item == 'action':
-                        type = mapst[item]['type'][dict_i['type']]
-                        fa.write(t + ': 执行了(%s)操作.\n' % type)
-                    elif item == 'page':
-                        type = mapst[item]['type'][dict_i['type']]
-                        fa.write(t + ': 进入了(%s)(%s)页面.\n' % (type, dict_i['id']))
-                    elif item == 'duration':
-                        type = mapst[item]['type'][dict_i['type']]
-                        fa.write(t + ': 在(%s)停留(%s)秒.\n' % (type, dict_i['sec']))
-                    elif item == 'v':
-                        yn = mapst[item]['yn'][dict_i['yn']]
-                        fa.write(t + ': 在(%s),播放视频(%s)秒,(%s).\n' % (dict_i['ref'], dict_i['pdur'], yn))
-                    elif item == 'adclick':
-                        fa.write(t + ': 点击广告.\n')
-                    elif item == 'in':
-                        type = mapst[item]['type'][dict_i['type']]
-                        status = mapst[item]['status'][dict_i['status']]
-                        fa.write(t + ': (%s)客户端,用户状态:(%s).\n' % (type, status))
-                    elif item == 'pushaccess':
-                        pushtype = mapst[item]['pushtype'][dict_i['pushtype']]
-                        fa.write(t + ': 收到推送,推送类型:(%s),推送通道:(%s).\n' % (pushtype, dict_i['ref']))
-                    elif item == 'openpush':
-                        type = mapst[item]['type'][dict_i['type']]
-                        pushtype = mapst[item]['pushtype'][dict_i['pushtype']]
-                        fa.write(t + ': (%s)打开推送,推送类型:(%s),推送通道:(%s).\n' % (type, pushtype, dict_i['ref']))
-                    elif item == 'ts':
-                        type = mapst[item]['type'][dict_i['type']]
-                        fa.write(t + ': 在(%s)频道,(%s)页面,进行了分享操作.\n' % (dict_i['ch'], type))
-                    elif item == 'end':
-                        if 'status' in dict_i:
-                            status = mapst[item]['status'][dict_i['status']]
-                            fa.write(t + ': (%s)客户端,此次客户端运行时长(%s)秒.\n' % (status, dict_i['odur']))
-                        else:
-                            fa.write(t + ': 退出客户端,此次客户端运行时长(%s)秒.\n' % dict_i['odur'])
-                    elif item == 'desktop':
-                        op = mapst[item]['op'][dict_i['op']]
-                        fa.write(t + '(%s).\n' % op)
-                    elif item == 'login':
-                        type = mapst[item]['type'][dict_i['type']]
-                        fa.write(t + ': 用户用(%s)登录客户端.\n' % type)
-                    elif item == 'except':
-                        fa.write(t + ': 客户端异常退出.\n')
-                    elif item == 'hb':
-                        fa.write(t + ': 心跳tm=%s\n' % dict_i['tm'])
-                    elif item == 'shumeng':
-                        fa.write(t + ': 数盟统计\n')
-                    else:
-                        fa.write(i)
                 else:
-                    fa.write(i)
+                    try:
+                        dict_i = string_dic(i)
+                        item = dict_i['item']
+
+                        if item == 'action':
+                            if mapst.get(item).get('type').get(dict_i['type']):
+                                type = mapst[item]['type'][dict_i['type']]
+                                fa.write(t + ': 执行了(%s)操作.\n' % type)
+                            else:
+                                fa.write(t + ': 执行了(%s)操作.\n' % dict_i['type'])
+                        elif item == 'page':
+                            if 'type' in dict_i:
+                                type = mapst[item]['type'][dict_i['type']]
+                                fa.write(t + ': 进入了(%s)(%s)页面.\n' % (type, dict_i['id']))
+                            else:
+                                fa.write(t + ': 进入了(%s)页面.\n' % dict_i['id'])
+                        elif item == 'duration':
+                            type = mapst[item]['type'][dict_i['type']]
+                            fa.write(t + ': 在(%s)停留(%s)秒.\n' % (type, dict_i['sec']))
+                        elif item == 'v':
+                            yn = mapst[item]['yn'][dict_i['yn']]
+                            if 'ref' in dict_i:
+                                fa.write(t + ': 在(%s),播放视频(%s)秒,(%s).\n' % (dict_i['ref'], dict_i['pdur'], yn))
+                            else:
+                                fa.write(t + ': 播放视频(%s)秒,(%s).\n' % (dict_i['pdur'], yn))
+                        elif item == 'adclick':
+                            fa.write(t + ': 点击广告.\n')
+                        elif item == 'in':
+                            type = mapst[item]['type'][dict_i['type']]
+                            status = mapst[item]['status'][dict_i['status']]
+                            fa.write(t + ': (%s)客户端,用户状态:(%s).\n' % (type, status))
+                        elif item == 'pushaccess':
+                            pushtype = mapst[item]['pushtype'][dict_i['pushtype']]
+                            fa.write(t + ': 收到推送,推送类型:(%s),推送通道:(%s).\n' % (pushtype, dict_i['ref']))
+                        elif item == 'openpush':
+                            type = mapst[item]['type'][dict_i['type']]
+                            pushtype = mapst[item]['pushtype'][dict_i['pushtype']]
+                            fa.write(t + ': (%s)打开推送,推送类型:(%s),推送通道:(%s).\n' % (type, pushtype, dict_i['ref']))
+                        elif item == 'ts':
+                            if 'type' in dict_i:
+                                type = mapst[item]['type'][dict_i['type']]
+                                fa.write(t + ': 在(%s)频道,(%s)页面,进行了分享操作.\n' % (dict_i['ch'], type))
+                            else:
+                                fa.write(t + ': 在(%s)频道,进行了分享操作.\n')
+                        elif item == 'end':
+                            if 'status' in dict_i:
+                                status = mapst[item]['status'][dict_i['status']]
+                                fa.write(t + ': (%s)客户端,此次客户端运行时长(%s)秒.\n' % (status, dict_i['odur']))
+                            else:
+                                fa.write(t + ': 退出客户端,此次客户端运行时长(%s)秒.\n' % dict_i['odur'])
+                        elif item == 'desktop':
+                            op = mapst[item]['op'][dict_i['op']]
+                            fa.write(t + '(%s).\n' % op)
+                        elif item == 'login':
+                            type = mapst[item]['type'][dict_i['type']]
+                            fa.write(t + ': 用户用(%s)登录客户端.\n' % type)
+                        elif item == 'except':
+                            fa.write(t + ': 客户端异常退出.\n')
+                        elif item == 'hb':
+                            fa.write(t + ': 心跳tm=%s\n' % dict_i['tm'])
+                        elif item == 'shumeng':
+                            fa.write(t + ': 数盟统计\n')
+                        else:
+                            fa.write(i)
+
+                    except Exception as e:
+                        print('Error:', e)
+                        print(i)
+
             else:
                 fa.write(i)
 

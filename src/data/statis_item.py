@@ -244,7 +244,7 @@ mapst = {
             'ph':'个人主页',
             'fmpg':'fm频道',
             'vch':'视频下导航分类',
-            'vlice':'视频直播间',
+            'vlive':'视频直播间',
             'live':'直播主页,列表和栏目',
             'pgplay':'当页播放(视频或音频)',
             'sns_':'身边人sns',
@@ -266,7 +266,8 @@ mapst = {
                 'chrcmd':'算法频道首页',
                 'article':'文章单页',
                 'chvideo':'视频频道中的二级频道',
-                'video':'视频'
+                'video':'视频',
+                'pic':'图集'
             }
     },
     'v':{
@@ -286,7 +287,7 @@ mapst = {
             'notification':'常驻通知栏打开'
         },
         'status':{
-            'in':'已登录',
+            'on':'已登录',
             'off':'未登录'
         }
     },
@@ -389,6 +390,13 @@ finduserkey = [
     '868144030038191',
     '3ac8bbf766884f2ea2736998e5748d12'
 ]
+
+
+print(mapst.get('action').get('type').get('fhjkds'))
+
+
+
+
 
 
 # userkey:4362743782832891738921
