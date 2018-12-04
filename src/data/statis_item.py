@@ -41,7 +41,7 @@ mapst = {
             'fmwin':'fm播放浮窗点击操作',
             'pushvio':'推送声音开/关操作',
             'dlresult':'离线下载成功/失败',
-            'upscreen':'频道首页、-上拉操作到达屏幕数',
+            'upscreen':'频道首页上拉',
             'btnnews':'屏幕底部位置一按钮点击',
             'btnmedia':'屏幕底部位置二按钮点击',
             'btnhot':'屏幕底部位置三按钮点击',

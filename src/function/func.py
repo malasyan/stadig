@@ -153,9 +153,9 @@ def report(mfile, lfile, mapst):
             if '#' in i:
                 t = i[:i.find('#')]
                 if i[i.find('#') + 1 : i.rfind('#')] == 'adinfo':
-                    fa.write(t + ': 广告曝光\n')
+                    continue
                 elif i[i.find('#') + 1 : i.rfind('#')] == 'pageinfo':
-                    fa.write(t + ': page曝光\n')
+                    continue
                 else:
                     try:
                         dict_i = string_dic(i)
