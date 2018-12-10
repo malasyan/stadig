@@ -267,7 +267,8 @@ mapst = {
                 'article':'文章单页',
                 'chvideo':'视频频道中的二级频道',
                 'video':'视频',
-                'pic':'图集'
+                'pic':'图集',
+                'vch':'视频下导航分类'
             }
     },
     'v':{
@@ -347,7 +348,8 @@ mapst = {
             'bubble':'泡泡秀',
             'login_dl':'注册登录弹框',
             'closepush_stay':'关闭推送挽留',
-            'comment_detail':'评论详情'
+            'comment_detail':'评论详情',
+            'sv':'小视频'
         }
     },
     'end':{
